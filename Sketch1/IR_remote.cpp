@@ -5,7 +5,7 @@ IR_remote::IR_remote()
 	//irsend = new IRsend(IR_LED);
 	ac = new IRCoolixAC(IR_LED);
 	ac->begin();
-	
+
 }
 
 

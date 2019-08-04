@@ -3,7 +3,7 @@
 WebServer::WebServer()
 {
 	esp8266webserver = new ESP8266WebServer(80);
-	
+
 	//Set this IP to the computer you wake up with WOL
 	computer_ip = IPAddress(10, 20, 30, 2);
 	computer_ip_broadcast = IPAddress(10, 20, 30, 255);
@@ -53,7 +53,7 @@ void WebServer::sendNTPpacket(IPAddress& address)
 
 void WebServer::triggerAlarm() {
 	Serial.println(F("Alarm triggered"));
-	
+
 	disableAlarm();
 
 	uint32_t beginWait = millis();
@@ -126,7 +126,7 @@ unsigned long WebServer::updateTime() {
 			second = epoch % 60;
 
 			checkForAlarm();
-			
+
 			Serial.print(F("Current time is "));
 			Serial.printf("%d:%d:%d.\n", hour, minute, second);
 
@@ -149,11 +149,11 @@ void WebServer::updateDHT()
 
 void WebServer::addTime(long seconds)
 {
-	 timeUTC += seconds;
-	 hour = (timeUTC % 86400L) / 3600;
-	 minute = (timeUTC % 3600) / 60;
-	 second = timeUTC % 60;
-	 checkForAlarm();
+	timeUTC += seconds;
+	hour = (timeUTC % 86400L) / 3600;
+	minute = (timeUTC % 3600) / 60;
+	second = timeUTC % 60;
+	checkForAlarm();
 }
 
 void WebServer::checkForAlarm() {
@@ -199,23 +199,23 @@ void WebServer::handleRoot() {
 	esp8266webserver->send(200, "text/html",
 		String("") + \
 		F(HTML1) \
-		+ F("<h3>Now playing  ") + _data->artistName + " - " + _data->title + "</h3>" +\
+		+ F("<h3>Now playing  ") + _data->artistName + " - " + _data->title + "</h3>" + \
 		F(HTML2) \
-		+ F("<td style=\"background-color: ") + (_data->isPlaying == true ? "#CCCCCC" : "#FFFFFF") + F("\"><p><a href=\"player?do="  STR(PLAY)  "\">PLAY/PAUSE</a></p>") +\
+		+ F("<td style=\"background-color: ") + (_data->isPlaying == true ? "#CCCCCC" : "#FFFFFF") + F("\"><p><a href=\"player?do="  STR(PLAY)  "\">PLAY/PAUSE</a></p>") + \
 		F(HTML2a) \
-		+ F("<td style=\"background-color: ") + (_client->shuffle==true?"#CCCCCC":"#FFFFFF") +F("\"><p><a href=\"player?do="  STR(SHUFFLE)  "\">SHUFFLE</a></p>") +\
+		+ F("<td style=\"background-color: ") + (_client->shuffle == true ? "#CCCCCC" : "#FFFFFF") + F("\"><p><a href=\"player?do="  STR(SHUFFLE)  "\">SHUFFLE</a></p>") + \
 		F(HTML2b) \
-		+ F("<p>Last HTTP return code from the player was ") + _client->lastHTTPcode + (_client->lastErrorMessage!=""?" with the message \""+_client->lastErrorMessage+"\"":"") +"</p>" +\
+		+ F("<p>Last HTTP return code from the player was ") + _client->lastHTTPcode + (_client->lastErrorMessage != "" ? " with the message \"" + _client->lastErrorMessage + "\"" : "") + "</p>" + \
 		F(HTML3) \
-		+ F("<p>Current time is:") + hour + ":" + minute + ":" + second + F(". DST is currently ") + (isDST == true ? "active" : "inactive") + "</p>"  +\
+		+ F("<p>Current time is:") + hour + ":" + minute + ":" + second + F(". DST is currently ") + (isDST == true ? "active" : "inactive") + "</p>" + \
 		F(HTML4) \
 		+ (alarmTriggered == true ? String("") + F("<p>The alarm was triggered</p>") : "")  \
 		+ (alarmSet == true ? String("") + F("<p>There is an alarm set at ") + ((alarmUTC % 86400L) / 3600) + ":" + ((alarmUTC % 3600) / 60) + " with volume " + saved_settings.alarmVolume + "</p>" : "") + \
 		F(HTML5)
-		+ F("<h3> Temperature: ") + temperature + F("*C Humidity: ") + humidity + F("% Heat Index: ") + heatIndex + F("*C</h3>")  +\
+		+ F("<h3> Temperature: ") + temperature + F("*C Humidity: ") + humidity + F("% Heat Index: ") + heatIndex + F("*C</h3>") + \
 		F(HTML6)
 
-		);
+	);
 }
 
 void WebServer::handleIr() {
@@ -317,9 +317,9 @@ void WebServer::handleAlarm() {
 		char h[3], m[3];
 		memcpy(h, esp8266webserver->arg(0).c_str(), 2);
 		h[2] = 0;
-		memcpy(m, esp8266webserver->arg(0).c_str()+3, 2);
+		memcpy(m, esp8266webserver->arg(0).c_str() + 3, 2);
 		m[2] = 0;
-		
+
 		uint8_t alarmHour = strtoul(h, NULL, 10);
 		uint8_t alarmMinute = strtoul(m, NULL, 10);
 		uint8_t hNow, mNow;
@@ -355,7 +355,7 @@ void WebServer::handleAlarm() {
 		saved_settings.DSTactive = isDST;
 		EEPROM.put(0, saved_settings);
 		EEPROM.commit();
-		
+
 	}
 	else if (esp8266webserver->args() == 1 && esp8266webserver->argName(0) == "volume") {
 		saved_settings.alarmVolume = strtoul(esp8266webserver->arg(0).c_str(), NULL, 10);
@@ -407,7 +407,7 @@ void WebServer::WebServer_init(SpotifyData *data, SpotifyAuth *auth, SpotifyClie
 		Serial.println(saved_settings.alarmUTC);
 		Serial.print(F("alarm volume: "));
 		Serial.println(saved_settings.alarmVolume);
-		
+
 	}
 
 	UDP.begin(localPort);

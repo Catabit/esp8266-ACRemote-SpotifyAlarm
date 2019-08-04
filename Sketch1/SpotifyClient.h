@@ -15,35 +15,35 @@
 
 
 typedef struct SpotifyAuth {
-  String accessToken;
-  String tokenType;
-  uint16_t expiresIn;
-  String refreshToken;
-  String scope;
+	String accessToken;
+	String tokenType;
+	uint16_t expiresIn;
+	String refreshToken;
+	String scope;
 
 } SpotifyAuth;
 
 typedef struct SpotifyData {
-  uint32_t progressMs;
-  boolean isPlaying;
-  boolean isPlayerActive;
-  
-  String artistName;
-  
-  String image640Href;
-  String image300Href;
-  String image64Href;
-  
-  uint32_t durationMs;
-  String title;
-  
+	uint32_t progressMs;
+	boolean isPlaying;
+	boolean isPlayerActive;
+
+	String artistName;
+
+	String image640Href;
+	String image300Href;
+	String image64Href;
+
+	uint32_t durationMs;
+	String title;
+
 } SpotifyData;
 
-class SpotifyClient: public JsonListener {
+class SpotifyClient : public JsonListener {
 
-	private:
+private:
 	JsonStreamingParser parser;
-	
+
 	WiFiClientSecure client;
 	String currentKey;
 	String currentParent;
@@ -59,26 +59,26 @@ class SpotifyClient: public JsonListener {
 	String lastDeviceID;
 
 	String host = "api.spotify.com";
-  
+
 	ESP8266WebServer *server;
 
 	String getRootPath();
 
-	String savedURI="";
+	String savedURI = "";
 
 	String makeRequest(String method, String url, String content);
 
-	public:
+public:
 	String PC_id;
 	bool shuffle;
 	int volume;
 	uint32_t lastHTTPcode = 0;
 
 	String lastErrorMessage = "";
- 
+
 	void setSavedURI(String newURI);
 	String getSavedURI();
-  
+
 	SpotifyClient(String clientId, String clientSecret, String redirectUri);
 	uint16_t update(SpotifyData *data, SpotifyAuth *auth);
 
@@ -87,9 +87,9 @@ class SpotifyClient: public JsonListener {
 	uint16_t getAvailableDevices(SpotifyAuth *auth);
 	uint16_t toggleShuffle(SpotifyAuth *auth);
 	uint16_t setShuffle(SpotifyAuth *auth, bool shuffle);
-	uint16_t setVolume(SpotifyAuth *auth, int newVolume=75);
-	uint16_t setDevice(SpotifyAuth *auth, String newDevice="");
-	uint16_t playURI(SpotifyAuth *auth, String newURI=""); 
+	uint16_t setVolume(SpotifyAuth *auth, int newVolume = 75);
+	uint16_t setDevice(SpotifyAuth *auth, String newDevice = "");
+	uint16_t playURI(SpotifyAuth *auth, String newURI = "");
 
 	void getToken(SpotifyAuth *auth, String grantType, String code);
 

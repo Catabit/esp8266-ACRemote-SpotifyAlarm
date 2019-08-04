@@ -63,7 +63,7 @@
 		"<br>" \
 		"<div style=\"overflow-x:auto;\">" \
 		"<h3>Spotify controls</h3>"
-		
+
 
 
 #define HTML2 \
@@ -95,7 +95,7 @@
 		"<br>" \
 		"<div style=\"overflow-x:auto;\">"
 
-		
+
 
 #define HTML4 \
 		"<a href=\"alarm?dst=1\"><input type=\"button\" value=\"Toggle DST\"></a> " \
@@ -103,7 +103,7 @@
 		"<p>Set the alarm volume: <form action=\"/alarm\" method=\"get\"><input type=\"number\" name=\"volume\" min=\"0\" max=\"100\"> <input type=\"submit\" value=\"Submit\"></form></p>" \
 		"<p><a href=\"alarm?disable=1\">Disable alarm</a></p>"
 
-		
+
 #define HTML5 \
 		"</div>" \
 		"<br>" \

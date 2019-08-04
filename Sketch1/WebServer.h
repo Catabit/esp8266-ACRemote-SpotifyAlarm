@@ -52,7 +52,7 @@ public:
 
 	//manually adds seconds to the local UTC time that is synced every now and then with updateTime
 	void addTime(long seconds);
-	
+
 
 	void setDST(bool state);
 	bool getDST();
@@ -61,9 +61,9 @@ public:
 
 private:
 	WiFiUDP UDP;
-	
+
 	DHTesp dht;
-	float humidity=0, temperature=0, heatIndex=0;
+	float humidity = 0, temperature = 0, heatIndex = 0;
 
 	unsigned int localPort = 2390;      // local port to listen for UDP packets
 	const char* ntpServerName = "ro.pool.ntp.org";

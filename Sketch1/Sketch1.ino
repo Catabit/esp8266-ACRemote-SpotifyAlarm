@@ -13,7 +13,7 @@
 #define TIMER_MEDIUM_COUNT (5* 60000) // every 5 minutes
 #define TIMER_SLOW_COUNT (30*60000) // every 30 minutes
 
- // Spotify settings
+// Spotify settings
 String clientId = SPOTIFY_CLIENTID;
 String clientSecret = SPOTIFY_SECRET;
 
@@ -24,7 +24,7 @@ IPAddress dns1(8, 8, 8, 8);
 IPAddress dns2(8, 8, 4, 4);
 
 //	http: //esp.8266.ip.address/callback/
-String redirectUri = String("http%3A%2F%2F"+ip.toString()+"%2Fcallback%2F");
+String redirectUri = String("http%3A%2F%2F" + ip.toString() + "%2Fcallback%2F");
 
 
 WebServer webserver;
